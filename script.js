@@ -54,17 +54,17 @@ const gameBoard = (() => {
   return {board, checkWin, resetBoard, checkDraw};
 })();
 
-const Player = (m) => {
+const Player = (m, pName) => {
   const mark = m;
   let turn = false;
-  let playerName = "";
+  let playerName = pName;
 
   return {mark, turn, playerName};
 };
 
 const gameController = (() => {
-  playerOne = Player("X");
-  playerTwo = Player("O");
+  playerOne = Player("X", "Player One");
+  playerTwo = Player("O", "Player Two");
   let playMarker = "";
 
   const checkSpaceFree = (loc) =>{
@@ -119,10 +119,19 @@ const displayController = (() => {
 
   for (const name of names) {
     name.addEventListener('input', (e) => {
-      if (e.target.dataset.id == "p-one"){
-        gameController.setPlayerName(e.target.value, 1);
+      let pNameChoice = e.target.value;
+
+      if (e.target.value === "") {
+        if (e.target.dataset.id === "p-one") {
+          pNameChoice = "Player One";
+        } else {
+          pNameChoice = "Player Two";
+        }
+      };
+      if (e.target.dataset.id === "p-one"){
+        gameController.setPlayerName(pNameChoice, 1);
       } else {
-        gameController.setPlayerName(e.target.value, 2);
+        gameController.setPlayerName(pNameChoice, 2);
       }
     })
   }
