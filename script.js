@@ -57,8 +57,9 @@ const gameBoard = (() => {
 const Player = (m) => {
   const mark = m;
   let turn = false;
+  let playerName = "";
 
-  return {mark, turn};
+  return {mark, turn, playerName};
 };
 
 const gameController = (() => {
@@ -85,6 +86,14 @@ const gameController = (() => {
     }
   }
 
+  const setPlayerName = (name, player) => {
+    if (player === 1) {
+      playerOne.playerName = name;
+    } else {
+      playerTwo.playerName = name;
+    }
+  }
+
   const resetPlayerTurn = () => {
     playerOne.turn = false;
     playerTwo.turn = false;
@@ -92,13 +101,13 @@ const gameController = (() => {
 
   const winner = () => {
     if (playMarker === "O") {
-      return "Player Two Wins!";
+      return `${playerTwo.playerName} Wins!`;
     } else {
-      return "Player One Wins!";
+      return `${playerOne.playerName} Wins!`;
     }
   };
 
-  return {checkSpaceFree, winner, resetPlayerTurn};
+  return {checkSpaceFree, winner, resetPlayerTurn, setPlayerName};
 })();
 
 const displayController = (() => {
@@ -106,6 +115,17 @@ const displayController = (() => {
   const boxes = document.querySelectorAll('.clickable-box');
   const newGameBtn = document.querySelector('.new-game-btn');
   const displayWinner = document.querySelector('.winner-box');
+  const names = document.querySelectorAll('input');
+
+  for (const name of names) {
+    name.addEventListener('input', (e) => {
+      if (e.target.dataset.id == "p-one"){
+        gameController.setPlayerName(e.target.value, 1);
+      } else {
+        gameController.setPlayerName(e.target.value, 2);
+      }
+    })
+  }
 
   for (const box of boxes) {
     box.addEventListener('click', () =>{

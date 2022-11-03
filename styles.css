@@ -46,3 +46,27 @@ body{
   font-size: 30px;
   border-radius: 15px;
 }
+
+.player-name-inputs{
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.p-label-input label{
+  display: inline-block;
+  width: 250px;
+}
+
+.p-label-input{
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-label-input input {
+  font-size: 30px;
+  width: 200px;
+}
